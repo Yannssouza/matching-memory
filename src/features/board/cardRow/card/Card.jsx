@@ -5,6 +5,7 @@ import {
   selectVisibleIDs,
   selectMatchedIDs,
   flipCard,
+  resetCards,
 } from "../../boardSlice.js";
 let cardLogo =
   "https://static-assets.codecademy.com/Courses/Learn-Redux/matching-game/codecademy_logo.png";
@@ -18,6 +19,11 @@ export const Card = ({ id, contents }) => {
   const flipHandler = (id) => {
     // Add action dispatch below
     dispatch(flipCard(id));
+  };
+
+  const tryAgainHandler = () => {
+    // Add action dispatch below
+    dispatch(resetCards());
   };
 
   let cardStyle = "resting";
@@ -43,7 +49,13 @@ export const Card = ({ id, contents }) => {
   // 3rd if statement
   // implement number of flipped cards check
   if (visibleIDs.length === 2) {
-    click = () => {};
+    click = () => tryAgainHandler();
+  }
+
+  // 4rd if statement
+  // implement card style equals no match
+  if (visibleIDs.length === 2 && !matchedIDs.includes(id)) {
+    cardStyle = "no-match";
   }
 
   return (
